@@ -6,7 +6,7 @@ Built with Next.js on Vercel, Supabase (auth and Postgres), the Anthropic API an
 
 ## How sign-in works
 
-You sign in with a one-time code from your email. An installed iPhone app has separate storage from Safari, so a sign-in link would log in Safari and leave the app signed out. Typing a code into the app avoids that.
+You sign in with your email and password. No sign-in emails are sent, so there are no email templates or email rate limits to deal with.
 
 ## Setup
 
@@ -24,32 +24,19 @@ The app also never creates users itself, and the API rejects any address other t
 
 ### 3. Create your user
 
-Go to **Authentication > Users > Add user > Create new user**. Enter your email and any strong password, and tick **Auto Confirm User**. The password is never used.
+Go to **Authentication > Users > Add user > Create new user**. Enter your email and a strong password, and tick **Auto Confirm User**. This is the password you sign in to the app with.
 
-### 4. Put the code in the sign-in email
+To change it later, open the user under **Authentication > Users** and set a new password.
 
-This step is required. The default template contains only a link, so the app would have nothing to type in.
-
-Go to **Authentication > Emails**, open the **Magic Link** template, and replace the body with:
-
-```html
-<h2>Your Fridge Recipes code</h2>
-<p>Enter this code in the app:</p>
-<p style="font-size: 28px; font-weight: bold;">{{ .Token }}</p>
-<p>Or, in a browser, <a href="{{ .SiteURL }}/auth/callback?token_hash={{ .TokenHash }}&type=email">sign in with this link</a>.</p>
-```
-
-Supabase's built-in email service is heavily rate limited (a few messages per hour) and only delivers to members of your Supabase organization. Use the email you signed up to Supabase with, or configure custom SMTP under **Project Settings > Authentication**.
-
-### 5. Run the migration
+### 4. Run the migration
 
 Open the **SQL Editor**, paste in the contents of [`supabase/migrations/0001_init.sql`](supabase/migrations/0001_init.sql), and run it.
 
-### 6. Set an Anthropic spend limit
+### 5. Set an Anthropic spend limit
 
 Create an API key in the [Anthropic Console](https://console.anthropic.com), then set a monthly spend limit under **Settings > Limits**. This is your final protection if everything else fails.
 
-### 7. Deploy to Vercel
+### 6. Deploy to Vercel
 
 Push this folder to a private Git repository and import it into Vercel, or run `npx vercel` from this folder.
 
@@ -64,18 +51,14 @@ Add these under **Settings > Environment Variables**:
 
 Redeploy after adding them, because `NEXT_PUBLIC_` values are built into the app.
 
-### 8. Point Supabase at your site
-
-Go to **Authentication > URL Configuration** and set **Site URL** to your Vercel URL. The link in the email uses it.
-
-### 9. Install it on your phone
+### 7. Install it on your phone
 
 Open your Vercel URL, then:
 
 - **iPhone:** in Safari, tap **Share**, then **Add to Home Screen**.
 - **Android:** in Chrome, open the menu, then tap **Add to Home screen** or **Install app**.
 
-Open the app from its new icon and sign in there, using the code from your email. Signing in through Safari won't carry over to the installed app.
+Open the app from its new icon and sign in there with your email and password. An installed iPhone app keeps its storage separate from Safari, so signing in through Safari won't carry over to the app.
 
 ## Local development
 
