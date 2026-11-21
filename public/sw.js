@@ -1,4 +1,4 @@
-const CACHE = "fridge-shell-v1";
+const CACHE = "fridge-shell-v2";
 const PRECACHE = ["/manifest.json", "/icons/icon-192.png", "/icons/icon-512.png"];
 
 self.addEventListener("install", (event) => {
