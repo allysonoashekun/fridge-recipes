@@ -1,10 +1,11 @@
 "use client";
 
 import { useState, type FormEvent } from "react";
+import Fridge, { SpeechBubble } from "@/components/Fridge";
 import { createClient } from "@/lib/supabase/browser";
 
 const INPUT_CLASS =
-  "h-14 w-full rounded-xl border border-border bg-card px-4 outline-none focus:border-accent";
+  "h-14 w-full rounded-xl border-2 border-border bg-card px-4 outline-none focus:border-accent";
 const BUTTON_CLASS =
   "h-14 w-full rounded-xl bg-accent font-semibold text-accent-foreground disabled:opacity-50";
 
@@ -36,6 +37,10 @@ export default function LoginPage() {
 
   return (
     <div className="flex flex-1 flex-col justify-center gap-6">
+      <div className="flex items-start gap-1">
+        <Fridge pose="wave" className="h-36 w-28 shrink-0" />
+        <SpeechBubble className="pop-in mt-4">hi!</SpeechBubble>
+      </div>
       <h1 className="text-3xl font-bold">Fridge Recipes</h1>
 
       <form onSubmit={signIn} className="flex flex-col gap-3">

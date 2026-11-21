@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Fridge from "@/components/Fridge";
 import IngredientChips from "@/components/IngredientChips";
 import { api, jsonRequest } from "@/lib/api";
 
@@ -29,14 +30,22 @@ export default function PantryPage() {
 
   return (
     <>
-      <header>
-        <h1 className="text-2xl font-bold">Pantry staples</h1>
-        <p className="text-muted">
-          Recipes assume you always have these on hand.
-        </p>
+      <header className="flex items-end gap-3">
+        <Fridge pose={status === "saved" ? "heart" : "stand"} className="h-20 w-16 shrink-0" />
+        <div className="pb-1">
+          <h1 className="text-2xl font-bold">Pantry staples</h1>
+          <p className="text-muted">
+            Recipes assume you always have these on hand.
+          </p>
+        </div>
       </header>
 
-      {!items && !error && <p className="text-muted">Loading…</p>}
+      {!items && !error && (
+        <div className="flex items-center gap-3 text-muted">
+          <Fridge pose="think" bobbing className="h-14 w-11" />
+          Loading…
+        </div>
+      )}
 
       {items && (
         <>

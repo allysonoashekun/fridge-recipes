@@ -26,7 +26,7 @@ export default function RecipeCard({ recipe, canSave = false }: Props) {
   }
 
   return (
-    <article className="flex flex-col gap-3 rounded-2xl border border-border bg-card p-4">
+    <article className="flex flex-col gap-3 rounded-2xl border-2 border-border bg-card p-4">
       <header>
         <h3 className="text-xl font-semibold">{recipe.name}</h3>
         <p className="text-muted">{recipe.time_minutes} min</p>

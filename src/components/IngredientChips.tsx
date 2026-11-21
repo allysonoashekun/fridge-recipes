@@ -31,7 +31,7 @@ export default function IngredientChips({ items, onChange, addLabel }: Props) {
             <button
               type="button"
               aria-label={`Remove ${item}`}
-              className="flex min-h-11 items-center gap-2 rounded-full border border-border bg-card px-4"
+              className="flex min-h-11 items-center gap-2 rounded-full border-2 border-border bg-card px-4"
               onClick={() => onChange(items.filter((other) => other !== item))}
             >
               {item}
@@ -47,12 +47,12 @@ export default function IngredientChips({ items, onChange, addLabel }: Props) {
         <input
           aria-label={addLabel}
           placeholder={addLabel}
-          className="h-12 min-w-0 flex-1 rounded-xl border border-border bg-card px-4 outline-none focus:border-accent"
+          className="h-12 min-w-0 flex-1 rounded-xl border-2 border-border bg-card px-4 outline-none focus:border-accent"
           maxLength={100}
           value={draft}
           onChange={(event) => setDraft(event.target.value)}
         />
-        <button className="h-12 rounded-xl border border-border bg-card px-5 font-medium">
+        <button className="h-12 rounded-xl border-2 border-border bg-card px-5 font-medium">
           Add
         </button>
       </form>

@@ -1,33 +1,24 @@
 @import "tailwindcss";
 
+/* Monotone mint theme: one light mint and a deep forest green. */
 :root {
-  --background: #faf7f2;
-  --foreground: #23201b;
-  --card: #ffffff;
-  --border: #e6dfd3;
-  --muted: #6f675b;
-  --accent: #2f6f55;
-  --accent-foreground: #ffffff;
-  --danger: #a93a2c;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #181613;
-    --foreground: #f1ece3;
-    --card: #23201b;
-    --border: #3a352c;
-    --muted: #a99f8f;
-    --accent: #5fb892;
-    --accent-foreground: #10201a;
-    --danger: #e98a7b;
-  }
+  --background: #d6f5e3;
+  --foreground: #0f6b3e;
+  --card: #ecfbf2;
+  --fill: #8ee0b4;
+  --fill-deep: #6fd09c;
+  --border: #0f6b3e;
+  --muted: #1e774a;
+  --accent: #0f6b3e;
+  --accent-foreground: #ecfbf2;
+  --danger: #b3261e;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-card: var(--card);
+  --color-fill: var(--fill);
   --color-border: var(--border);
   --color-muted: var(--muted);
   --color-accent: var(--accent);
@@ -35,14 +26,154 @@
   --color-danger: var(--danger);
 }
 
+html {
+  color-scheme: light;
+}
+
 body {
   background: var(--background);
   color: var(--foreground);
   font-family: ui-rounded, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   -webkit-tap-highlight-color: transparent;
+  /* The fridge walks in from off-screen; don't let that add a scrollbar. */
+  overflow-x: clip;
 }
 
 /* iOS Safari zooms the page when focusing inputs under 16px. */
 input {
   font-size: 16px;
+}
+
+/* ---------- Fridge mascot ---------- */
+
+.fridge {
+  overflow: visible;
+}
+
+.fridge-leg-l {
+  transform-origin: 50px 112px;
+}
+.fridge-leg-r {
+  transform-origin: 70px 112px;
+}
+.fridge.is-walking .fridge-leg-l {
+  animation: leg-swing 0.36s ease-in-out infinite alternate;
+}
+.fridge.is-walking .fridge-leg-r {
+  animation: leg-swing 0.36s ease-in-out infinite alternate-reverse;
+}
+.fridge.is-walking .fridge-body {
+  animation: bob 0.18s ease-in-out infinite alternate;
+}
+.fridge.is-bobbing .fridge-body {
+  animation: bob 0.5s ease-in-out infinite alternate;
+}
+
+.fridge-wave {
+  transform-origin: 92px 68px;
+  animation: wave 1.2s ease-in-out infinite;
+}
+
+.fridge-blink {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: blink 4s infinite;
+}
+
+.fridge-walk-in {
+  animation: walk-in 1.8s cubic-bezier(0.25, 0.8, 0.4, 1) both;
+}
+
+.pop-in {
+  transform-origin: bottom left;
+  animation: pop-in 0.45s cubic-bezier(0.34, 1.6, 0.6, 1) both;
+}
+
+/* Tail pointing down-left toward the fridge. */
+.speech-bubble::before,
+.speech-bubble::after {
+  content: "";
+  position: absolute;
+  left: 14px;
+  border-style: solid;
+}
+.speech-bubble::before {
+  bottom: -16px;
+  border-width: 16px 16px 0 0;
+  border-color: var(--foreground) transparent transparent transparent;
+}
+.speech-bubble::after {
+  bottom: -10px;
+  left: 17px;
+  border-width: 10px 10px 0 0;
+  border-color: var(--card) transparent transparent transparent;
+}
+
+@keyframes walk-in {
+  from {
+    transform: translateX(-110vw);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+@keyframes leg-swing {
+  from {
+    transform: rotate(-16deg);
+  }
+  to {
+    transform: rotate(16deg);
+  }
+}
+
+@keyframes bob {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(-4px);
+  }
+}
+
+@keyframes wave {
+  0%,
+  100% {
+    transform: rotate(0deg);
+  }
+  50% {
+    transform: rotate(-18deg);
+  }
+}
+
+@keyframes blink {
+  0%,
+  94%,
+  100% {
+    transform: scaleY(1);
+  }
+  97% {
+    transform: scaleY(0.1);
+  }
+}
+
+@keyframes pop-in {
+  from {
+    opacity: 0;
+    transform: scale(0.3);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  /* Near-zero rather than none, so animationend still fires. */
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+  }
 }

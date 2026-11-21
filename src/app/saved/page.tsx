@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Fridge, { SpeechBubble } from "@/components/Fridge";
 import RecipeCard from "@/components/RecipeCard";
 import { api } from "@/lib/api";
 import type { SavedRecipe } from "@/lib/schema";
@@ -17,16 +18,28 @@ export default function SavedPage() {
 
   return (
     <>
-      <h1 className="text-2xl font-bold">Saved recipes</h1>
+      <header className="flex items-end gap-3">
+        <Fridge pose="heart" className="h-20 w-16 shrink-0" />
+        <h1 className="pb-2 text-2xl font-bold">Saved recipes</h1>
+      </header>
 
       {error && (
         <p role="alert" className="text-danger">
           {error}
         </p>
       )}
-      {!recipes && !error && <p className="text-muted">Loading…</p>}
+      {!recipes && !error && (
+        <div className="flex items-center gap-3 text-muted">
+          <Fridge pose="think" bobbing className="h-14 w-11" />
+          Loading…
+        </div>
+      )}
       {recipes?.length === 0 && (
-        <p className="text-muted">Recipes you save will show up here.</p>
+        <div className="flex flex-col items-center gap-4 py-8">
+          <SpeechBubble className="pop-in">nothing saved yet!</SpeechBubble>
+          <Fridge className="h-36 w-28" />
+          <p className="text-muted">Recipes you save will show up here.</p>
+        </div>
       )}
 
       {recipes?.map((recipe) => (

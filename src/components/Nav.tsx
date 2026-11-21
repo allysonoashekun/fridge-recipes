@@ -14,18 +14,22 @@ export default function Nav() {
   if (pathname === "/login") return null;
 
   return (
-    <nav className="border-b border-border">
+    <nav className="border-b-2 border-border">
       <div className="mx-auto flex max-w-xl px-2">
         {LINKS.map(({ href, label }) => (
           <Link
             key={href}
             href={href}
             aria-current={pathname === href ? "page" : undefined}
-            className={`flex h-12 flex-1 items-center justify-center font-medium ${
-              pathname === href ? "text-accent" : "text-muted"
-            }`}
+            className="flex h-12 flex-1 items-center justify-center font-semibold"
           >
-            {label}
+            <span
+              className={`rounded-full px-4 py-1 ${
+                pathname === href ? "bg-accent text-accent-foreground" : "text-muted"
+              }`}
+            >
+              {label}
+            </span>
           </Link>
         ))}
       </div>

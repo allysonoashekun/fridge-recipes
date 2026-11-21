@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import FridgeIntro from "@/components/FridgeIntro";
 import IngredientChips from "@/components/IngredientChips";
 import RecipeCard from "@/components/RecipeCard";
 import SnapButton from "@/components/SnapButton";
@@ -61,6 +62,7 @@ export default function HomePage() {
 
   return (
     <>
+      <FridgeIntro busy={busy} hasResult={hasResult} />
       <SnapButton busy={busy} onPhoto={analyze} />
 
       {error && (
@@ -83,7 +85,7 @@ export default function HomePage() {
             addLabel="Add an ingredient"
           />
           <button
-            className="h-12 rounded-xl border border-accent font-semibold text-accent disabled:opacity-50"
+            className="h-12 rounded-xl border-2 border-accent font-semibold text-accent disabled:opacity-50"
             disabled={busy || ingredients.length === 0}
             onClick={regenerate}
           >
